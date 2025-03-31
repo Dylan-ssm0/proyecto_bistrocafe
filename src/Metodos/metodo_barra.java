@@ -266,4 +266,103 @@ public class metodo_barra {
             }
         }
     }
-}
+    
+    
+    public void barra_ingrediente(JTextField barra, DefaultTableModel tabla, JTable txttabla, JLabel msj){
+        try{
+                Conexion con = new Conexion("postgres", "12345", "localhost", "5432", "proyecto_cafeteria");
+                con.ConexionPostgres();
+                conect = con.getConnection();
+
+                String cad = barra.getText().trim();
+                String querybarra = "SELECT * FROM ingrediente WHERE nombre_ingrediente LIKE ?";
+
+                ps = conect.prepareStatement(querybarra);
+                ps.setString(1, cad+"%");
+
+                rs = ps.executeQuery();
+                tabla.setRowCount(0);
+
+                while(rs.next()){
+                    tabla.addRow(new Object[]{
+                        rs.getLong("id_ingrediente"),
+                        rs.getString("nombre_ingrediente"),
+                        rs.getArray("nombre_nutriente"),
+                        rs.getString("descripcion_ingrediente")
+                    });
+                }
+                txttabla.setModel(tabla);
+                cambiar_estilo(txttabla);
+            }
+            catch(ClassNotFoundException | SQLException e){
+                msj.setForeground(Color.RED);
+                msj.setText("❌ Error: "+e.getMessage());
+            }
+            catch(Exception e){
+                msj.setForeground(Color.RED);
+                msj.setText("❌ Error inesperado: "+e.getMessage());
+                e.printStackTrace();
+            }
+            finally{
+                try{
+                    if(rs != null)rs.close();
+                    if(ps != null)ps.close();
+                    if(conect != null)conect.close();
+                }
+                catch(SQLException e){
+                    e.printStackTrace();
+                }
+            }
+        }
+    
+    
+        public void barra_producto(JTextField barra, DefaultTableModel tabla, JTable txttabla, JLabel msj){
+        try{
+                Conexion con = new Conexion("postgres", "12345", "localhost", "5432", "proyecto_cafeteria");
+                con.ConexionPostgres();
+                conect = con.getConnection();
+
+                String cad = barra.getText().trim();
+                String querybarra = "SELECT * FROM producto WHERE nombre_producto LIKE ?";
+
+                ps = conect.prepareStatement(querybarra);
+                ps.setString(1, cad+"%");
+
+                rs = ps.executeQuery();
+                tabla.setRowCount(0);
+
+                while(rs.next()){
+                    tabla.addRow(new Object[]{
+                        rs.getLong("id_producto"),
+                        rs.getString("nombre_producto"),
+                        rs.getString("categoria_producto"),
+                        rs.getString("descripcion_producto"),
+                        rs.getArray("nombre_ingrediente"),
+                        rs.getDouble("precio_producto")
+                    });
+                }
+                txttabla.setModel(tabla);
+                cambiar_estilo(txttabla);
+            }
+            catch(ClassNotFoundException | SQLException e){
+                msj.setForeground(Color.RED);
+                msj.setText("❌ Error: "+e.getMessage());
+            }
+            catch(Exception e){
+                msj.setForeground(Color.RED);
+                msj.setText("❌ Error inesperado: "+e.getMessage());
+                e.printStackTrace();
+            }
+            finally{
+                try{
+                    if(rs != null)rs.close();
+                    if(ps != null)ps.close();
+                    if(conect != null)conect.close();
+                }
+                catch(SQLException e){
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+

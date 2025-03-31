@@ -209,6 +209,9 @@
               </Border>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="barraKeyReleased"/>
+          </Events>
         </Component>
         <Container class="javax.swing.JScrollPane" name="scrol2">
           <AuxValues>
@@ -266,6 +269,9 @@
               </Border>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtid_ingredienteActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="advIDI">
           <Properties>
@@ -411,6 +417,9 @@
               </Border>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtnombreActionPerformed"/>
+          </Events>
         </Component>
         <Container class="javax.swing.JScrollPane" name="scrol">
           <AuxValues>

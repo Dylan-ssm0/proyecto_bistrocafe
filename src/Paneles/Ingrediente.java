@@ -6,7 +6,9 @@ package Paneles;
 
 import Clases.nutriente;
 import Metodos.Conexion;
+import Metodos.metodo_barra;
 import Metodos.metodo_ingrediente;
+import Metodos.metodo_validaciones;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -40,9 +42,11 @@ public class Ingrediente extends javax.swing.JPanel {
     }
     DefaultTableModel tabla2 = new DefaultTableModel();
     DefaultTableModel tabla = new DefaultTableModel();
-    public static List<Long> añadir = new ArrayList<>();
+    public static List<String> añadir = new ArrayList<>();
     
     metodo_ingrediente mi = new metodo_ingrediente();
+    metodo_validaciones v = new metodo_validaciones();
+    metodo_barra b = new metodo_barra();
     
     public void mostrar_nutrientes(DefaultTableModel tabla, JLabel msj){
         Connection conect = null;
@@ -144,6 +148,11 @@ public class Ingrediente extends javax.swing.JPanel {
         barra.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         barra.setForeground(new java.awt.Color(75, 46, 46));
         barra.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(209, 122, 95), 2));
+        barra.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                barraKeyReleased(evt);
+            }
+        });
 
         txtnutriente.setBackground(new java.awt.Color(255, 248, 231));
         txtnutriente.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -160,6 +169,11 @@ public class Ingrediente extends javax.swing.JPanel {
         txtid_ingrediente.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         txtid_ingrediente.setForeground(new java.awt.Color(75, 46, 46));
         txtid_ingrediente.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(209, 122, 95), 2));
+        txtid_ingrediente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtid_ingredienteActionPerformed(evt);
+            }
+        });
 
         advIDI.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         advIDI.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -231,6 +245,11 @@ public class Ingrediente extends javax.swing.JPanel {
         txtnombre.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         txtnombre.setForeground(new java.awt.Color(75, 46, 46));
         txtnombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(209, 122, 95), 2));
+        txtnombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtnombreActionPerformed(evt);
+            }
+        });
 
         txttabla.setBackground(new java.awt.Color(255, 248, 231));
         txttabla.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -387,6 +406,18 @@ public class Ingrediente extends javax.swing.JPanel {
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         mi.editar(txtid_ingrediente, txtnombre, txtdescripcion, añadir, txttabla, advBar);
     }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void txtid_ingredienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtid_ingredienteActionPerformed
+        v.validar_numero(txtid_ingrediente, txtnombre, advIDI);
+    }//GEN-LAST:event_txtid_ingredienteActionPerformed
+
+    private void txtnombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnombreActionPerformed
+        v.validar_texto_area(txtnombre, txtdescripcion, advNom);
+    }//GEN-LAST:event_txtnombreActionPerformed
+
+    private void barraKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_barraKeyReleased
+        b.barra_ingrediente(barra, tabla, txttabla, advBar);
+    }//GEN-LAST:event_barraKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

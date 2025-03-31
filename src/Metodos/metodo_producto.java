@@ -4,15 +4,11 @@
  */
 package Metodos;
 
-import Clases.nutriente;
-import com.toedter.calendar.JDateChooser;
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.awt.Color;
-import java.lang.reflect.Array;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,67 +24,75 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author ASUS
  */
-public class metodo_ingrediente {
+public class metodo_producto {
     
-    public void añadir(JTable camp, List<String> lista_nutriente, JLabel msj){
+    
+    //Añadir
+     public void añadir(JTable camp, List<String> lista_Ingrediente, JLabel msj){
         
         int fila_seleccionada = camp.getSelectedRow();
     
         if (fila_seleccionada == -1) {  
         msj.setForeground(Color.RED);
-        msj.setText("Error: Seleccione un nutriente antes de agregarlo.");
+        msj.setText("Error: Seleccione un ingrediente antes de agregarlo.");
         return;
         }
 
         // Obtener valores de la fila seleccionada
-        Object nombre_nutriente = camp.getValueAt(fila_seleccionada, 1);
+        Object nombre_Ingrediente = camp.getValueAt(fila_seleccionada, 1);
 
-        if (nombre_nutriente != null) {
-            String nut = nombre_nutriente.toString();
+        if (nombre_Ingrediente != null) {
+            String Ing = nombre_Ingrediente.toString();
 
             // Verificar que el nutriente no esté repetido en la lista
-            if (!lista_nutriente.contains(nut)) {
-                lista_nutriente.add(nut);
+            if (!lista_Ingrediente.contains(Ing)) {
+                lista_Ingrediente.add(Ing);
                 msj.setForeground(Color.GREEN);
-                msj.setText("Nutriente agregado con éxito.");
+                msj.setText("Ingrediente agregado con éxito.");
             } else {
                 msj.setForeground(Color.ORANGE);
-                msj.setText("El nutriente ya ha sido agregado.");
+                msj.setText("El ingrediente ya ha sido agregado.");
             }
         } else {
             msj.setForeground(Color.RED);
-            msj.setText("Error: No se pudo obtener el nutriente.");
+            msj.setText("Error: No se pudo obtener el Ingrediente.");
         }
     }
-    
-    public void listar(JTextField camp1, JTextField camp2, JTextArea camp4, DefaultTableModel tabla, JLabel msj, List<String> lista_nutriente) {
+     
+     
+     //Listar
+     public void listar(JTextField camp1, JComboBox camp2, JTextField camp3, JTextArea camp4, JTextField camp5, DefaultTableModel tabla, JLabel msj, List<String> lista_ingrediente) {
     PreparedStatement ps = null;
     Connection conn = null;
 
     try {
         // Validar que los campos obligatorios estén llenos
         long c1;
+        double c5;
         try {
             c1 = Long.parseLong(camp1.getText().trim());
+            c5 = Long.parseLong(camp5.getText().trim());
         } catch (NumberFormatException e) {
             msj.setForeground(Color.RED);
             msj.setText("Error: Debe rellenar todos los campos numéricos.");
             return;
         }
-
-        String c2 = camp2.getText().trim();
+        
+        Object obj2 = camp2.getSelectedItem();
+        String c3 = camp3.getText().trim();
         String c4 = camp4.getText().trim();
 
-        if (c2.isEmpty() || c4.isEmpty()) {
+        if (obj2 ==null || c3.isEmpty() || c4.isEmpty()) {
             msj.setForeground(Color.RED);
-            msj.setText("Error: Todos los campos de texto son obligatorios.");
+            msj.setText("Error: Todos los campos son obligatorios.");
             return;
         }
-
+        String c2 = obj2.toString();
+        
         // Validar que haya al menos un nutriente seleccionado
-        if (lista_nutriente.isEmpty()) {
+        if (lista_ingrediente.isEmpty()) {
             msj.setForeground(Color.RED);
-            msj.setText("Error: Debe agregar al menos un nutriente.");
+            msj.setText("Error: Debe agregar al menos un Ingrediente.");
             return;
         }
 
@@ -98,22 +102,23 @@ public class metodo_ingrediente {
         conn = con.getConnection();  // Obtener la conexión
 
         if (conn == null) {
-            msj.setForeground(Color.RED);
-            msj.setText("Error: No se pudo conectar a la base de datos.");
+            JOptionPane.showMessageDialog(null, "Error: No se pudo conectar a la base de datos.");
             return;
         }
 
         // Convertir lista de nutrientes en un ARRAY de PostgreSQL
-        String[] arrayNutrientes = lista_nutriente.toArray(new String[0]); 
-        java.sql.Array sqlArray = conn.createArrayOf("text", arrayNutrientes); // Convertir en ARRAY de PostgreSQL
+        String[] arrayIngredientes = lista_ingrediente.toArray(new String[0]); 
+        java.sql.Array sqlArray = conn.createArrayOf("text", arrayIngredientes); // Convertir en ARRAY de PostgreSQL
 
         // Consulta corregida
-        String queryIngrediente = "INSERT INTO ingrediente (id_ingrediente, nombre_ingrediente, nombre_nutriente, descripcion_ingrediente) VALUES (?, ?, ?, ?)";
+        String queryIngrediente = "INSERT INTO producto (id_producto, categoria_producto, nombre_producto, descripcion_producto, nombre_ingrediente, precio_producto) VALUES (?, ?, ?, ?, ?, ?)";
         ps = conn.prepareStatement(queryIngrediente);
         ps.setLong(1, c1);
-        ps.setString(2, c2); 
-        ps.setArray(3, sqlArray);
+        ps.setString(2, c2);  
+        ps.setString(3, c3);
         ps.setString(4, c4);
+        ps.setArray(5, sqlArray);
+        ps.setDouble(6, c5);
 
         int filasInsertadas = ps.executeUpdate();
 
@@ -127,9 +132,11 @@ public class metodo_ingrediente {
 
         // Limpiar los campos y la lista
         camp1.setText("");
-        camp2.setText("");
+        camp2.setSelectedIndex(0);
+        camp3.setText("");
         camp4.setText("");
-        lista_nutriente.clear();
+        camp5.setText("");
+        lista_ingrediente.clear();
 
     } catch (Exception e) {
         Logger.getLogger(metodo_cliente.class.getName()).log(Level.SEVERE, null, e);
@@ -142,11 +149,11 @@ public class metodo_ingrediente {
             e.printStackTrace();
         }
     }
-}
-
-
-    //Mostrar
-    public void mostrar(DefaultTableModel tabla, JLabel msj){
+     }
+     
+     
+     //Mostrar
+     public void mostrar(DefaultTableModel tabla, JLabel msj){
         Connection conect = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -157,16 +164,18 @@ public class metodo_ingrediente {
             conect = con.getConnection();
             tabla.setRowCount(0);
             
-            String querymostrar = "SELECT * FROM ingrediente";
+            String querymostrar = "SELECT * FROM producto";
             ps = conect.prepareStatement(querymostrar);
             rs = ps.executeQuery();
             
             while(rs.next()){
                 tabla.addRow(new Object[]{
-                    rs.getLong("id_ingrediente"),
-                    rs.getString("nombre_ingrediente"),
-                    rs.getArray("nombre_nutriente"),
-                    rs.getString("descripcion_ingrediente"),
+                    rs.getLong("id_producto"),
+                    rs.getString("nombre_producto"),
+                    rs.getString("categoria_producto"),
+                    rs.getString("descripcion_producto"),
+                    rs.getArray("nombre_ingrediente"),
+                    rs.getDouble("precio_producto")
                 });
             }
         }
@@ -189,10 +198,10 @@ public class metodo_ingrediente {
             }
         }
     }
-    
-    
-    //Buscar
-     public void buscar(JTextField camp1, JTextField camp2, JTextArea camp3, JLabel msj){
+     
+     
+     //Buscar
+     public void buscar(JTextField camp1, JComboBox camp2, JTextField camp3, JTextArea camp4, JTextField camp5, JLabel msj){
         Connection conect = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -202,10 +211,10 @@ public class metodo_ingrediente {
             con.ConexionPostgres();
             conect = con.getConnection();
             
-            String querybuscar = "SELECT * FROM ingrediente WHERE id_ingrediente = ?";
+            String querybuscar = "SELECT * FROM producto WHERE id_producto = ?";
             ps = conect.prepareStatement(querybuscar);
             
-            long buscar = Long.parseLong(JOptionPane.showInputDialog("Ingrese el registro del usuario que desee buscar: "));
+            long buscar = Long.parseLong(JOptionPane.showInputDialog("Ingrese el registro del producto que desee buscar: "));
             ps.setLong(1, buscar);
             
             rs = ps.executeQuery();
@@ -213,8 +222,10 @@ public class metodo_ingrediente {
             if(rs.next()){
                 
                 camp1.setText(rs.getString("id_ingrediente"));
-                camp2.setText(rs.getString("nombre_ingrediente"));
-                camp3.setText(rs.getString("descripcion_ingrediente"));
+                camp2.setSelectedItem(rs.getString("categoria_producto"));
+                camp3.setText(rs.getString("nombre_producto"));
+                camp4.setText(rs.getString("descripcion_producto"));
+                camp5.setText(rs.getString("precio_producto"));
                 
                 msj.setForeground(Color.GREEN);
                 msj.setText("Registro encontrado.");
@@ -245,11 +256,11 @@ public class metodo_ingrediente {
                 e.printStackTrace();
             }
         }
-    }
+     }
      
      
      //Editar
-     public void editar (JTextField camp1, JTextField camp2, JTextArea camp3, List<String> lista_nutriente, JTable tabla, JLabel msj){
+     public void editar (JTextField camp1, JComboBox camp2, JTextField camp3, JTextArea camp4, JTextField camp5, List<String> lista_ingrediente, JTable tabla, JLabel msj){
         Connection conect = null;
         PreparedStatement ps = null;
         
@@ -265,38 +276,49 @@ public class metodo_ingrediente {
                 return;
             }
             
-             long c1 = Long.parseLong(camp1.getText().trim());
-            String c2 = camp2.getText().trim();
+            long c1 = Long.parseLong(camp1.getText().trim());
+            long c5 = Long.parseLong(camp5.getText().trim());
+            
+            Object obj2 = camp2.getSelectedItem();
+            String c2 = obj2.toString();
+            
             String c3 = camp3.getText().trim();
+            String c4 = camp4.getText().trim();
             
-            String[] array_nutriente = lista_nutriente.toArray(new String[0]);
-            java.sql.Array sqlArray = conect.createArrayOf("text", array_nutriente);
+            String[] array_ingrediente = lista_ingrediente.toArray(new String[0]);
+            java.sql.Array sqlArray = conect.createArrayOf("text", array_ingrediente);
             
-            String queryEditar = "UPDATE ingrediente SET nombre_ingrediente = ?, nombre_nutriente = ?, descripcion_ingrediente = ? WHERE id_ingrediente = ?";
+            String queryEditar = "UPDATE ingrediente SET categoria_producto = ?, nombre_producto = ?, descripcion_producto = ?, nombre_ingrediente = ?, precio_producto = ? WHERE id_producto = ?";
             ps = conect.prepareStatement(queryEditar);
             
             ps.setString(1, c2);
-            ps.setArray(2, sqlArray); 
-            ps.setString(3, c3);
-            ps.setLong(4, c1);
+            ps.setString(2, c3); 
+            ps.setString(3, c4);
+            ps.setArray(4, sqlArray);
+            ps.setDouble(5, c5);
+            ps.setLong(6, c1);
 
             int fila_afectada = ps.executeUpdate();
             if(fila_afectada>0){
                 tabla.setValueAt(c1, fila_seleccionada, 0);
-                tabla.setValueAt(c2, fila_seleccionada, 1);
-                tabla.setValueAt(lista_nutriente.toString(), fila_seleccionada, 2);
-                tabla.setValueAt(c3, fila_seleccionada, 3);
+                tabla.setValueAt(c3, fila_seleccionada, 1);
+                tabla.setValueAt(c2, fila_seleccionada, 2);
+                tabla.setValueAt(c4, fila_seleccionada, 3);
+                tabla.setValueAt(sqlArray, fila_seleccionada, 4);
+                tabla.setValueAt(c5, fila_seleccionada, 5);
                 
                 msj.setForeground(Color.GREEN);
                 msj.setText("Registro editado con éxito");
                 camp1.setText("");
-                camp2.setText("");
+                camp2.setSelectedIndex(0);
                 camp3.setText("");
-                lista_nutriente.clear();
+                camp4.setText("");
+                camp5.setText("");
+                lista_ingrediente.clear();
             }
             else{
                 msj.setForeground(Color.RED);
-                msj.setText("No se encontró un ingrediente con ese ID.");
+                msj.setText("No se encontró un producto con ese ID.");
             }
         }
         catch (NumberFormatException e) {
@@ -318,6 +340,7 @@ public class metodo_ingrediente {
      }
      
      
+     //Eliminar
      public void eliminar(DefaultTableModel tabla, JTable txttabla, JLabel msj){
         
         PreparedStatement ps;
@@ -343,7 +366,7 @@ public class metodo_ingrediente {
                  Conexion  con= new Conexion("postgres", "12345", "localhost", "5432", "proyecto_cafeteria");
                  con.ConexionPostgres();
                  
-                 String queryeliminar = "DELETE FROM ingrediente WHERE id_ingrediente = ? ";
+                 String queryeliminar = "DELETE FROM producto WHERE id_producto = ? ";
                  ps = con.getConnection().prepareStatement(queryeliminar);
                  ps.setLong(1, cc);
                  
@@ -351,12 +374,12 @@ public class metodo_ingrediente {
              
                  if(FilasAfectadas > 0){
                      msj.setForeground(Color.GREEN);
-                     msj.setText("Ingrediente eliminado con éxito.");
+                     msj.setText("Producto eliminado con éxito.");
                      tabla.removeRow(fila_seleccionada);
                  }
                  else{
                     msj.setForeground(Color.RED);
-                    msj.setText("No se ha encontrado el ingrediente");
+                    msj.setText("No se ha encontrado el producto");
                  }
                  
                  ps.close();

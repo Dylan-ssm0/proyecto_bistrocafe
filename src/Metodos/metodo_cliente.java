@@ -177,7 +177,7 @@ public class metodo_cliente {
                 
                 Date fecha_nacimiento = rs.getDate("fecha_nacimiento_cliente");
                 camp7.setDate(fecha_nacimiento !=null? fecha_nacimiento: new Date());
-                camp8.setSelectedItem("genero_cliente");
+                camp8.setSelectedItem(rs.getString("genero_cliente"));
                 
                 msj.setForeground(Color.GREEN);
                 msj.setText("Registro encontrado.");
