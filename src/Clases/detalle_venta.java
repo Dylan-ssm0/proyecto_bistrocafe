@@ -4,34 +4,26 @@ package Clases;
 
 public class detalle_venta {
     
-    private long id_detalle;
-    private long id_venta;
-    private long id_producto;
+    private String categoria;
+    private String producto;
     private int cantidad;
     private double valor;
+    private double subtotal;
 
-    public long getId_detalle() {
-        return id_detalle;
+    public String getCategoria() {
+        return categoria;
     }
 
-    public void setId_detalle(long id_detalle) {
-        this.id_detalle = id_detalle;
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
 
-    public long getId_venta() {
-        return id_venta;
+    public String getProducto() {
+        return producto;
     }
 
-    public void setId_venta(long id_venta) {
-        this.id_venta = id_venta;
-    }
-
-    public long getId_producto() {
-        return id_producto;
-    }
-
-    public void setId_producto(long id_producto) {
-        this.id_producto = id_producto;
+    public void setProducto(String producto) {
+        this.producto = producto;
     }
 
     public int getCantidad() {
@@ -50,11 +42,20 @@ public class detalle_venta {
         this.valor = valor;
     }
 
-    public detalle_venta(long id_detalle, long id_venta, long id_producto, int cantidad, double valor) {
-        this.id_detalle = id_detalle;
-        this.id_venta = id_venta;
-        this.id_producto = id_producto;
+    public double getSubtotal() {
+        return subtotal;
+    }
+
+    public void setSubtotal(double subtotal) {
+        this.subtotal = subtotal;
+    }
+
+    public detalle_venta(String categoria, String producto, int cantidad, double valor, double subtotal) {
+        this.categoria = categoria;
+        this.producto = producto;
         this.cantidad = cantidad;
         this.valor = valor;
+        this.subtotal = subtotal;
     }
+    
 }

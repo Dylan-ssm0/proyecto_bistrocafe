@@ -221,7 +221,7 @@ public class metodo_producto {
             
             if(rs.next()){
                 
-                camp1.setText(rs.getString("id_ingrediente"));
+                camp1.setText(rs.getString("id_producto"));
                 camp2.setSelectedItem(rs.getString("categoria_producto"));
                 camp3.setText(rs.getString("nombre_producto"));
                 camp4.setText(rs.getString("descripcion_producto"));
@@ -288,7 +288,7 @@ public class metodo_producto {
             String[] array_ingrediente = lista_ingrediente.toArray(new String[0]);
             java.sql.Array sqlArray = conect.createArrayOf("text", array_ingrediente);
             
-            String queryEditar = "UPDATE ingrediente SET categoria_producto = ?, nombre_producto = ?, descripcion_producto = ?, nombre_ingrediente = ?, precio_producto = ? WHERE id_producto = ?";
+            String queryEditar = "UPDATE producto SET categoria_producto = ?, nombre_producto = ?, descripcion_producto = ?, nombre_ingrediente = ?, precio_producto = ? WHERE id_producto = ?";
             ps = conect.prepareStatement(queryEditar);
             
             ps.setString(1, c2);
