@@ -21,7 +21,7 @@ import javax.swing.table.DefaultTableModel;
 public class metodo_empleado {
     
     public void listar (JTextField camp1, JTextField camp2, JTextField camp3, JTextField camp4, JTextField camp5, JTextField camp6, JDateChooser camp7, JDateChooser camp8, JComboBox camp9,  JLabel msj){
-        PreparedStatement ps = null;
+        PreparedStatement ps;
         
         try{
             long c1 =0;
@@ -63,7 +63,7 @@ public class metodo_empleado {
             Conexion con = new Conexion("postgres", "12345", "localhost", "5432", "proyecto_cafeteria");
             con.ConexionPostgres();
             
-            String querylistar = "INSERT INTO empleado VALUES ("+c1+", '"+c2+"', '"+c3+"' , "+c4+" , '"+c5+"' , '"+c6+"' , '"+c7+"' , '"+c8+"')";
+            String querylistar = "INSERT INTO empleado VALUES ("+c1+", '"+c2+"', '"+c3+"' , "+c4+" , '"+c5+"' , '"+c6+"' , '"+c7+"' , '"+c8+"', '"+c9+"')";
             ps = con.getConnection().prepareStatement(querylistar);
 
             int rowsInserted = ps.executeUpdate();
@@ -90,9 +90,7 @@ public class metodo_empleado {
             camp9.setSelectedIndex(0);
         }
         catch(Exception ex){
-            Logger.getLogger(metodo_cliente.class.getName()).log(Level.SEVERE, null, ex);
-            msj.setForeground(Color.RED);
-            msj.setText("⚠ Error inesperado: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "⚠ Error inesperado: " + ex.getMessage());
         }
     }
     
@@ -229,7 +227,7 @@ public class metodo_empleado {
             String queryeditar  = "UPDATE empleado SET nombre_empleado = ?,  "
                     + "apellido_empleado = ?,  telefono_empleado = ?,  email_empleado = ?,  "
                     + " direccion_empleado = ?,  fecha_nacimiento_empleado = ?,  "
-                    + "fecha_ingreso_empleado, genero_empleado = ? WHERE cedula_empleado = ? ";
+                    + "fecha_ingreso_empleado = ?, genero_empleado = ? WHERE cedula_empleado = ? ";
                     
             ps = conect.prepareStatement(queryeditar);
             
@@ -274,7 +272,7 @@ public class metodo_empleado {
                 tabla.setValueAt(c6, fila_seleccionada, 5);
                 tabla.setValueAt(c7, fila_seleccionada, 6);
                 tabla.setValueAt(c8, fila_seleccionada, 7);
-                tabla.setValueAt(c9, fila_afectada, 8);
+                tabla.setValueAt(c9, fila_seleccionada, 8);
                 
                 msj.setForeground(Color.GREEN);
                 msj.setText("Registro editado con éxito");

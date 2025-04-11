@@ -40,14 +40,12 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="lblVen" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
-                          <Component id="txtventa" alignment="0" max="32767" attributes="0"/>
-                          <Component id="advVen" alignment="0" min="-2" pref="250" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="lblVen" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
+                      <Component id="advID" alignment="0" min="-2" pref="250" max="-2" attributes="0"/>
                       <Component id="lblCC" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
-                      <Component id="txtcedula_cliente" alignment="0" min="-2" pref="250" max="-2" attributes="0"/>
                       <Component id="advCC" alignment="0" min="-2" pref="250" max="-2" attributes="0"/>
+                      <Component id="txtid_venta" min="-2" pref="250" max="-2" attributes="0"/>
+                      <Component id="txtcc_cliente" min="-2" pref="250" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -55,8 +53,8 @@
                       <Component id="lblFV" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
                       <Component id="txtfecha_venta" alignment="0" min="-2" pref="250" max="-2" attributes="0"/>
                       <Component id="lblCE" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
-                      <Component id="txtcedula_emepleado" alignment="0" min="-2" pref="250" max="-2" attributes="0"/>
                       <Component id="advCE" alignment="0" min="-2" pref="250" max="-2" attributes="0"/>
+                      <Component id="txtcc_empleado" min="-2" pref="250" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -72,7 +70,8 @@
                           <Component id="btnEliminar" min="-2" pref="120" max="-2" attributes="0"/>
                       </Group>
                       <Component id="barra" alignment="0" max="32767" attributes="0"/>
-                      <Component id="txttabla" alignment="0" max="32767" attributes="0"/>
+                      <Component id="scrol" alignment="0" max="32767" attributes="0"/>
+                      <Component id="advBar" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -95,44 +94,47 @@
                   <Component id="barra" min="-2" pref="30" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="txttabla" min="-2" pref="300" max="-2" attributes="0"/>
-                      <Group type="102" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="lblVen" alignment="1" min="-2" pref="30" max="-2" attributes="0"/>
                               <Component id="lblCE" alignment="1" min="-2" pref="30" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="txtventa" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="txtcedula_emepleado" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="txtid_venta" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="txtcc_empleado" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="advVen" alignment="0" min="-2" pref="20" max="-2" attributes="0"/>
-                              <Component id="advCE" alignment="0" min="-2" pref="20" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="advID" pref="20" max="32767" attributes="0"/>
+                              <Component id="advCE" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="lblCC" min="-2" pref="30" max="-2" attributes="0"/>
                               <Component id="lblFV" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
                           </Group>
+                          <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="txtcedula_cliente" min="-2" pref="30" max="-2" attributes="0"/>
+                                  <Component id="txtcc_cliente" min="-2" pref="30" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="advCC" min="-2" pref="20" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                                   <Component id="txtfecha_venta" min="-2" pref="30" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="advFV" min="-2" pref="20" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="advBar" min="-2" pref="20" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="scrol" min="-2" pref="300" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace pref="92" max="32767" attributes="0"/>
+                  <EmptySpace pref="66" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -175,27 +177,7 @@
             <Property name="text" type="java.lang.String" value="ID"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtventa">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="e7" green="f8" red="ff" type="rgb"/>
-            </Property>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Arial" size="14" style="0"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="2e" green="2e" red="4b" type="rgb"/>
-            </Property>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                <LineBorder thickness="2">
-                  <Color PropertyName="color" blue="5f" green="7a" red="d1" type="rgb"/>
-                </LineBorder>
-              </Border>
-            </Property>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="advVen">
+        <Component class="javax.swing.JLabel" name="advID">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="12" style="0"/>
@@ -216,6 +198,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="LISTAR"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnListarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblCC">
           <Properties>
@@ -242,26 +227,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="MOSTRAR"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="txtcedula_cliente">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="e7" green="f8" red="ff" type="rgb"/>
-            </Property>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Arial" size="14" style="0"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="2e" green="2e" red="4b" type="rgb"/>
-            </Property>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                <LineBorder thickness="2">
-                  <Color PropertyName="color" blue="5f" green="7a" red="d1" type="rgb"/>
-                </LineBorder>
-              </Border>
-            </Property>
-          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMostrarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnBuscar">
           <Properties>
@@ -276,6 +244,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="BUSCAR"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="advCC">
           <Properties>
@@ -298,6 +269,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="EDITAR"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEditarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnEliminar">
           <Properties>
@@ -326,26 +300,6 @@
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="CEDULA DEL EMPLEADO"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="txtcedula_emepleado">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="e7" green="f8" red="ff" type="rgb"/>
-            </Property>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Arial" size="14" style="0"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="2e" green="2e" red="4b" type="rgb"/>
-            </Property>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                <LineBorder thickness="2">
-                  <Color PropertyName="color" blue="5f" green="7a" red="d1" type="rgb"/>
-                </LineBorder>
-              </Border>
-            </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="advCE">
@@ -399,15 +353,18 @@
               </Border>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="barraKeyReleased"/>
+          </Events>
         </Component>
-        <Container class="javax.swing.JScrollPane" name="txttabla">
+        <Container class="javax.swing.JScrollPane" name="scrol">
           <AuxValues>
             <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
           </AuxValues>
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="jTable1">
+            <Component class="javax.swing.JTable" name="txttabla">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="e7" green="f8" red="ff" type="rgb"/>
@@ -425,6 +382,92 @@
             </Component>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JComboBox" name="txtid_venta">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="e7" green="f8" red="ff" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial" size="14" style="0"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="2e" green="2e" red="4b" type="rgb"/>
+            </Property>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                <LineBorder thickness="2">
+                  <Color PropertyName="color" blue="5f" green="7a" red="d1" type="rgb"/>
+                </LineBorder>
+              </Border>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtid_ventaActionPerformed"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="txtcc_cliente">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="e7" green="f8" red="ff" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial" size="14" style="0"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="2e" green="2e" red="4b" type="rgb"/>
+            </Property>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                <LineBorder thickness="2">
+                  <Color PropertyName="color" blue="5f" green="7a" red="d1" type="rgb"/>
+                </LineBorder>
+              </Border>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtcc_clienteActionPerformed"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="txtcc_empleado">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="e7" green="f8" red="ff" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial" size="14" style="0"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="2e" green="2e" red="4b" type="rgb"/>
+            </Property>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                <LineBorder thickness="2">
+                  <Color PropertyName="color" blue="5f" green="7a" red="d1" type="rgb"/>
+                </LineBorder>
+              </Border>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtcc_empleadoActionPerformed"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JLabel" name="advBar">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial" size="12" style="0"/>
+            </Property>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>

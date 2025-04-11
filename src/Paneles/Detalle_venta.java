@@ -5,7 +5,9 @@
 package Paneles;
 
 import Clases.detalle_venta;
+import Metodos.metodo_barra;
 import Metodos.metodo_detalle;
+import Metodos.metodo_validaciones;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -29,6 +31,10 @@ public class Detalle_venta extends javax.swing.JPanel {
         String ids_carrito [] = {"Categoria", "Producto", "Cantidad", "Valor", "Subtotal"};
         tabla_carrito.setColumnIdentifiers(ids_carrito);
         txtcarrito.setModel(tabla_carrito);
+        
+        String ids_tabla [] = {"ID", "ID Venta", "Productos", "Total"};
+        tabla.setColumnIdentifiers(ids_tabla);
+        txttabla.setModel(tabla);
     }
 
     public static List<detalle_venta> lista_carrito = new ArrayList<>();
@@ -36,6 +42,8 @@ public class Detalle_venta extends javax.swing.JPanel {
     DefaultTableModel tabla_carrito = new DefaultTableModel();
     
     metodo_detalle md = new metodo_detalle();
+    metodo_validaciones v = new metodo_validaciones();
+    metodo_barra b = new metodo_barra();
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -51,7 +59,6 @@ public class Detalle_venta extends javax.swing.JPanel {
         advCan = new javax.swing.JLabel();
         btnListar = new javax.swing.JButton();
         btnMostrar = new javax.swing.JButton();
-        btnBuscar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         lblICat = new javax.swing.JLabel();
         btnEliminar = new javax.swing.JButton();
@@ -108,16 +115,21 @@ public class Detalle_venta extends javax.swing.JPanel {
         btnMostrar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnMostrar.setForeground(new java.awt.Color(255, 255, 255));
         btnMostrar.setText("MOSTRAR");
-
-        btnBuscar.setBackground(new java.awt.Color(174, 97, 40));
-        btnBuscar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
-        btnBuscar.setText("BUSCAR");
+        btnMostrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMostrarActionPerformed(evt);
+            }
+        });
 
         btnEditar.setBackground(new java.awt.Color(174, 97, 40));
         btnEditar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnEditar.setForeground(new java.awt.Color(255, 255, 255));
         btnEditar.setText("EDITAR");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         lblICat.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lblICat.setForeground(new java.awt.Color(75, 46, 46));
@@ -146,6 +158,11 @@ public class Detalle_venta extends javax.swing.JPanel {
         txtvalor.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         txtvalor.setForeground(new java.awt.Color(75, 46, 46));
         txtvalor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(209, 122, 95), 2));
+        txtvalor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtvalorActionPerformed(evt);
+            }
+        });
 
         advVal.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         advVal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -159,6 +176,11 @@ public class Detalle_venta extends javax.swing.JPanel {
         barra.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         barra.setForeground(new java.awt.Color(75, 46, 46));
         barra.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(209, 122, 95), 2));
+        barra.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                barraKeyReleased(evt);
+            }
+        });
 
         txttabla.setBackground(new java.awt.Color(255, 248, 231));
         txttabla.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -185,6 +207,11 @@ public class Detalle_venta extends javax.swing.JPanel {
         txtproducto.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         txtproducto.setForeground(new java.awt.Color(75, 46, 46));
         txtproducto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(209, 122, 95), 2));
+        txtproducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtproductoActionPerformed(evt);
+            }
+        });
 
         advProd.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         advProd.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -217,6 +244,11 @@ public class Detalle_venta extends javax.swing.JPanel {
         txtid.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         txtid.setForeground(new java.awt.Color(75, 46, 46));
         txtid.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(209, 122, 95), 2));
+        txtid.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtidActionPerformed(evt);
+            }
+        });
 
         advID.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         advID.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -224,12 +256,17 @@ public class Detalle_venta extends javax.swing.JPanel {
         lblIDV.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lblIDV.setForeground(new java.awt.Color(75, 46, 46));
         lblIDV.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblIDV.setText("ID Venta");
+        lblIDV.setText("ID VENTA");
 
         txtidv.setBackground(new java.awt.Color(255, 248, 231));
         txtidv.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         txtidv.setForeground(new java.awt.Color(75, 46, 46));
         txtidv.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(209, 122, 95), 2));
+        txtidv.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtidvActionPerformed(evt);
+            }
+        });
 
         advIDV.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         advIDV.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -269,27 +306,26 @@ public class Detalle_venta extends javax.swing.JPanel {
                             .addComponent(advIDV, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnAñadir, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(advCarr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(txttabla1, javax.swing.GroupLayout.PREFERRED_SIZE, 565, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnAñadir, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(advCarr, javax.swing.GroupLayout.PREFERRED_SIZE, 439, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(txttabla1, javax.swing.GroupLayout.PREFERRED_SIZE, 536, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(barra)
+                    .addComponent(scrol, javax.swing.GroupLayout.DEFAULT_SIZE, 624, Short.MAX_VALUE)
+                    .addComponent(advBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(62, 62, 62)
                         .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnMostrar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(barra)
-                    .addComponent(scrol)
-                    .addComponent(advBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(33, 33, 33))
         );
         jPanel1Layout.setVerticalGroup(
@@ -303,7 +339,6 @@ public class Detalle_venta extends javax.swing.JPanel {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnMostrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(32, 32, 32)
@@ -377,7 +412,7 @@ public class Detalle_venta extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
+        md.eliminar(tabla, txttabla, advBar);
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAñadirActionPerformed
@@ -392,6 +427,34 @@ public class Detalle_venta extends javax.swing.JPanel {
         md.Listar(txtid, txtidv, tabla_carrito, advCarr);
     }//GEN-LAST:event_btnListarActionPerformed
 
+    private void txtproductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtproductoActionPerformed
+       md.cargar_valor_por_producto(txtproducto, txtvalor, advVal);
+    }//GEN-LAST:event_txtproductoActionPerformed
+
+    private void txtidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtidActionPerformed
+        v.validar_numero(txtid, txtidv, advID);
+    }//GEN-LAST:event_txtidActionPerformed
+
+    private void txtidvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtidvActionPerformed
+       v.validar_ultimo_numero(txtidv, advIDV);
+    }//GEN-LAST:event_txtidvActionPerformed
+
+    private void txtvalorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtvalorActionPerformed
+        v.validar_ultimo_numero(txtvalor, advVal);
+    }//GEN-LAST:event_txtvalorActionPerformed
+
+    private void barraKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_barraKeyReleased
+        b.barra_detalle(barra, tabla, txttabla, advBar);
+    }//GEN-LAST:event_barraKeyReleased
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        md.editar(txtid, txtidv, tabla, txttabla, advBar);
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarActionPerformed
+        md.mostrar(tabla, advBar);
+    }//GEN-LAST:event_btnMostrarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel advBar;
@@ -404,7 +467,6 @@ public class Detalle_venta extends javax.swing.JPanel {
     private javax.swing.JLabel advVal;
     private javax.swing.JTextField barra;
     private javax.swing.JButton btnAñadir;
-    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnListar;

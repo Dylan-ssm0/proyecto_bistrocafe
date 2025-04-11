@@ -183,7 +183,7 @@ public class metodo_nutriente {
             con.ConexionPostgres();
             conect = con.getConnection();
             
-            String queryeditar  = "UPDATE nutriente SET nombre_nutriente = ?, WHERE id_nutriente = ? ";
+            String queryeditar  = "UPDATE nutriente SET nombre_nutriente = ? WHERE id_nutriente = ? ";
                     
             ps = conect.prepareStatement(queryeditar);
             
@@ -213,7 +213,7 @@ public class metodo_nutriente {
             }
             else{
                 msj.setForeground(Color.RED);
-                msj.setText("No se encontró una Categoria con esa ID.");
+                msj.setText("No se encontró un nutriente con esa ID.");
             }
         }
         catch (NumberFormatException e) {

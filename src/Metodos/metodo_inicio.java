@@ -49,7 +49,7 @@ public class metodo_inicio {
                JOptionPane.showMessageDialog(null, "✅ Inicio de sesión exitoso como " + rol);
                
                //Redirige según el tipo de rol
-               if(rol.equalsIgnoreCase("Administrador")){
+               if(rol.equalsIgnoreCase("Admin")){
                    new menu_admin().setVisible(true);
                }
                else if (rol.equalsIgnoreCase("Empleado")){

@@ -63,7 +63,7 @@ public class metodo_barra {
                         rs.getString("nombre_cliente"),
                         rs.getString("apellido_cliente"),
                         rs.getLong("telefono_cliente"),
-                        rs.getString("email.cliente"),
+                        rs.getString("email_cliente"),
                         rs.getString("direccion_cliente"),
                         rs.getDate("fecha_nacimiento_cliente"),
                         rs.getString("genero_cliente")
@@ -339,6 +339,102 @@ public class metodo_barra {
                         rs.getString("descripcion_producto"),
                         rs.getArray("nombre_ingrediente"),
                         rs.getDouble("precio_producto")
+                    });
+                }
+                txttabla.setModel(tabla);
+                cambiar_estilo(txttabla);
+            }
+            catch(ClassNotFoundException | SQLException e){
+                msj.setForeground(Color.RED);
+                msj.setText("❌ Error: "+e.getMessage());
+            }
+            catch(Exception e){
+                msj.setForeground(Color.RED);
+                msj.setText("❌ Error inesperado: "+e.getMessage());
+                e.printStackTrace();
+            }
+            finally{
+                try{
+                    if(rs != null)rs.close();
+                    if(ps != null)ps.close();
+                    if(conect != null)conect.close();
+                }
+                catch(SQLException e){
+                    e.printStackTrace();
+                }
+            }
+        }
+        
+        
+        public void barra_detalle(JTextField barra, DefaultTableModel tabla, JTable txttabla, JLabel msj){
+            try{
+                Conexion con = new Conexion("postgres", "12345", "localhost", "5432", "proyecto_cafeteria");
+                con.ConexionPostgres();
+                conect = con.getConnection();
+
+                String cad = barra.getText().trim();
+                String querybarra = "SELECT * FROM detalle_venta WHERE producto LIKE ?";
+
+                ps = conect.prepareStatement(querybarra);
+                ps.setString(1, cad+"%");
+
+                rs = ps.executeQuery();
+                tabla.setRowCount(0);
+
+                while(rs.next()){
+                    tabla.addRow(new Object[]{
+                        rs.getLong("id_detalle"),
+                        rs.getString("id_venta"),
+                        rs.getString("producto"),
+                        rs.getString("valor_total")
+                    });
+                }
+                txttabla.setModel(tabla);
+                cambiar_estilo(txttabla);
+            }
+            catch(ClassNotFoundException | SQLException e){
+                msj.setForeground(Color.RED);
+                msj.setText("❌ Error: "+e.getMessage());
+            }
+            catch(Exception e){
+                msj.setForeground(Color.RED);
+                msj.setText("❌ Error inesperado: "+e.getMessage());
+                e.printStackTrace();
+            }
+            finally{
+                try{
+                    if(rs != null)rs.close();
+                    if(ps != null)ps.close();
+                    if(conect != null)conect.close();
+                }
+                catch(SQLException e){
+                    e.printStackTrace();
+                }
+            }
+        }
+        
+        
+        public void barra_venta(JTextField barra, DefaultTableModel tabla, JTable txttabla, JLabel msj){
+            try{
+                Conexion con = new Conexion("postgres", "12345", "localhost", "5432", "proyecto_cafeteria");
+                con.ConexionPostgres();
+                conect = con.getConnection();
+
+                String cad = barra.getText().trim();
+                String querybarra = "SELECT * FROM venta WHERE id_venta LIKE ?";
+
+                ps = conect.prepareStatement(querybarra);
+                ps.setString(1, cad+"%");
+
+                rs = ps.executeQuery();
+                tabla.setRowCount(0);
+
+                while(rs.next()){
+                    tabla.addRow(new Object[]{
+                        rs.getLong("id_venta"),
+                        rs.getString("cedula_cliente"),
+                        rs.getString("cedula_empleado"),
+                        rs.getString("fecha_venta")
                     });
                 }
                 txttabla.setModel(tabla);

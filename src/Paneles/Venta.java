@@ -4,6 +4,11 @@
  */
 package Paneles;
 
+import Metodos.metodo_barra;
+import Metodos.metodo_validaciones;
+import Metodos.metodo_venta;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author ASUS
@@ -15,8 +20,20 @@ public class Venta extends javax.swing.JPanel {
      */
     public Venta() {
         initComponents();
+        mv.mostrar_id(txtid_venta, advID);
+        mv.mostrar_cc_cliente(txtcc_cliente);
+        mv.mostrar_cc_empleado(txtcc_empleado);
+        
+        String ids [] = {"ID", "Cedula del Cliente", "Cedula del Empleado", "Fecha de Venta"};
+        tabla.setColumnIdentifiers(ids);
+        txttabla.setModel(tabla);
     }
 
+    DefaultTableModel tabla = new DefaultTableModel();
+   
+    metodo_venta mv = new metodo_venta();
+    metodo_validaciones v = new metodo_validaciones();
+    metodo_barra b = new metodo_barra();
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,24 +47,25 @@ public class Venta extends javax.swing.JPanel {
         txtfecha_venta = new com.toedter.calendar.JDateChooser();
         advFV = new javax.swing.JLabel();
         lblVen = new javax.swing.JLabel();
-        txtventa = new javax.swing.JTextField();
-        advVen = new javax.swing.JLabel();
+        advID = new javax.swing.JLabel();
         btnListar = new javax.swing.JButton();
         lblCC = new javax.swing.JLabel();
         btnMostrar = new javax.swing.JButton();
-        txtcedula_cliente = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
         advCC = new javax.swing.JLabel();
         btnEditar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         lblCE = new javax.swing.JLabel();
-        txtcedula_emepleado = new javax.swing.JTextField();
         advCE = new javax.swing.JLabel();
         lblTitulo = new javax.swing.JLabel();
         lblFV = new javax.swing.JLabel();
         barra = new javax.swing.JTextField();
-        txttabla = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        scrol = new javax.swing.JScrollPane();
+        txttabla = new javax.swing.JTable();
+        txtid_venta = new javax.swing.JComboBox<>();
+        txtcc_cliente = new javax.swing.JComboBox<>();
+        txtcc_empleado = new javax.swing.JComboBox<>();
+        advBar = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(245, 225, 200));
 
@@ -63,18 +81,18 @@ public class Venta extends javax.swing.JPanel {
         lblVen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblVen.setText("ID");
 
-        txtventa.setBackground(new java.awt.Color(255, 248, 231));
-        txtventa.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        txtventa.setForeground(new java.awt.Color(75, 46, 46));
-        txtventa.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(209, 122, 95), 2));
-
-        advVen.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        advVen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        advID.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        advID.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         btnListar.setBackground(new java.awt.Color(174, 97, 40));
         btnListar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnListar.setForeground(new java.awt.Color(255, 255, 255));
         btnListar.setText("LISTAR");
+        btnListar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListarActionPerformed(evt);
+            }
+        });
 
         lblCC.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lblCC.setForeground(new java.awt.Color(75, 46, 46));
@@ -85,16 +103,21 @@ public class Venta extends javax.swing.JPanel {
         btnMostrar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnMostrar.setForeground(new java.awt.Color(255, 255, 255));
         btnMostrar.setText("MOSTRAR");
-
-        txtcedula_cliente.setBackground(new java.awt.Color(255, 248, 231));
-        txtcedula_cliente.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        txtcedula_cliente.setForeground(new java.awt.Color(75, 46, 46));
-        txtcedula_cliente.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(209, 122, 95), 2));
+        btnMostrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMostrarActionPerformed(evt);
+            }
+        });
 
         btnBuscar.setBackground(new java.awt.Color(174, 97, 40));
         btnBuscar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
         btnBuscar.setText("BUSCAR");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         advCC.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         advCC.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -103,6 +126,11 @@ public class Venta extends javax.swing.JPanel {
         btnEditar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnEditar.setForeground(new java.awt.Color(255, 255, 255));
         btnEditar.setText("EDITAR");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setBackground(new java.awt.Color(174, 97, 40));
         btnEliminar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -118,11 +146,6 @@ public class Venta extends javax.swing.JPanel {
         lblCE.setForeground(new java.awt.Color(75, 46, 46));
         lblCE.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCE.setText("CEDULA DEL EMPLEADO");
-
-        txtcedula_emepleado.setBackground(new java.awt.Color(255, 248, 231));
-        txtcedula_emepleado.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        txtcedula_emepleado.setForeground(new java.awt.Color(75, 46, 46));
-        txtcedula_emepleado.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(209, 122, 95), 2));
 
         advCE.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         advCE.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -141,12 +164,50 @@ public class Venta extends javax.swing.JPanel {
         barra.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         barra.setForeground(new java.awt.Color(75, 46, 46));
         barra.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(209, 122, 95), 2));
+        barra.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                barraKeyReleased(evt);
+            }
+        });
 
-        jTable1.setBackground(new java.awt.Color(255, 248, 231));
-        jTable1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jTable1.setForeground(new java.awt.Color(75, 46, 46));
-        jTable1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        txttabla.setViewportView(jTable1);
+        txttabla.setBackground(new java.awt.Color(255, 248, 231));
+        txttabla.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txttabla.setForeground(new java.awt.Color(75, 46, 46));
+        txttabla.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        scrol.setViewportView(txttabla);
+
+        txtid_venta.setBackground(new java.awt.Color(255, 248, 231));
+        txtid_venta.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtid_venta.setForeground(new java.awt.Color(75, 46, 46));
+        txtid_venta.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(209, 122, 95), 2));
+        txtid_venta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtid_ventaActionPerformed(evt);
+            }
+        });
+
+        txtcc_cliente.setBackground(new java.awt.Color(255, 248, 231));
+        txtcc_cliente.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtcc_cliente.setForeground(new java.awt.Color(75, 46, 46));
+        txtcc_cliente.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(209, 122, 95), 2));
+        txtcc_cliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtcc_clienteActionPerformed(evt);
+            }
+        });
+
+        txtcc_empleado.setBackground(new java.awt.Color(255, 248, 231));
+        txtcc_empleado.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtcc_empleado.setForeground(new java.awt.Color(75, 46, 46));
+        txtcc_empleado.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(209, 122, 95), 2));
+        txtcc_empleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtcc_empleadoActionPerformed(evt);
+            }
+        });
+
+        advBar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        advBar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -156,21 +217,20 @@ public class Venta extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(lblVen, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtventa)
-                        .addComponent(advVen, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblVen, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(advID, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblCC, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtcedula_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(advCC, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(advCC, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtid_venta, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtcc_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(65, 65, 65)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(advFV, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblFV, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtfecha_venta, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblCE, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtcedula_emepleado, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(advCE, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(advCE, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtcc_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -184,7 +244,8 @@ public class Venta extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(barra)
-                    .addComponent(txttabla))
+                    .addComponent(scrol)
+                    .addComponent(advBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -203,35 +264,37 @@ public class Venta extends javax.swing.JPanel {
                 .addComponent(barra, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txttabla, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblVen, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblCE, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtventa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtcedula_emepleado, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtid_venta, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtcc_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(advVen, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(advCE, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(advID, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
+                            .addComponent(advCE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblCC, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblFV, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(6, 6, 6)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtcedula_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtcc_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(advCC, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
                                 .addComponent(txtfecha_venta, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(advFV, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(92, Short.MAX_VALUE))
+                                .addComponent(advFV, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(advBar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(scrol, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -247,15 +310,48 @@ public class Venta extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
+        mv.eliminar(tabla, txttabla, advBar);
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void txtid_ventaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtid_ventaActionPerformed
+
+    }//GEN-LAST:event_txtid_ventaActionPerformed
+
+    private void txtcc_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtcc_clienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtcc_clienteActionPerformed
+
+    private void txtcc_empleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtcc_empleadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtcc_empleadoActionPerformed
+
+    private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
+        mv.listar(txtid_venta, txtcc_cliente, txtcc_empleado, txtfecha_venta, advBar);
+    }//GEN-LAST:event_btnListarActionPerformed
+
+    private void barraKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_barraKeyReleased
+        b.barra_venta(barra, tabla, txttabla, advBar);
+    }//GEN-LAST:event_barraKeyReleased
+
+    private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarActionPerformed
+        mv.mostrar(tabla, advBar);
+    }//GEN-LAST:event_btnMostrarActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        mv.buscar(txtid_venta, txtcc_cliente, txtcc_empleado, txtfecha_venta, advBar);
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        mv.editar(txtid_venta, txtcc_cliente, txtcc_empleado, txtfecha_venta, tabla, txttabla, advBar);
+    }//GEN-LAST:event_btnEditarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel advBar;
     private javax.swing.JLabel advCC;
     private javax.swing.JLabel advCE;
     private javax.swing.JLabel advFV;
-    private javax.swing.JLabel advVen;
+    private javax.swing.JLabel advID;
     private javax.swing.JTextField barra;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEditar;
@@ -263,16 +359,16 @@ public class Venta extends javax.swing.JPanel {
     private javax.swing.JButton btnListar;
     private javax.swing.JButton btnMostrar;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblCC;
     private javax.swing.JLabel lblCE;
     private javax.swing.JLabel lblFV;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lblVen;
-    private javax.swing.JTextField txtcedula_cliente;
-    private javax.swing.JTextField txtcedula_emepleado;
+    private javax.swing.JScrollPane scrol;
+    private javax.swing.JComboBox<String> txtcc_cliente;
+    private javax.swing.JComboBox<String> txtcc_empleado;
     private com.toedter.calendar.JDateChooser txtfecha_venta;
-    private javax.swing.JScrollPane txttabla;
-    private javax.swing.JTextField txtventa;
+    private javax.swing.JComboBox<String> txtid_venta;
+    private javax.swing.JTable txttabla;
     // End of variables declaration//GEN-END:variables
 }

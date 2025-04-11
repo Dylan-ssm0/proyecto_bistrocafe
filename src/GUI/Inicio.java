@@ -43,7 +43,7 @@ public class Inicio extends javax.swing.JFrame {
         advNom = new javax.swing.JLabel();
         advIng = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(46, 42, 40));
 
@@ -90,7 +90,8 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
 
-        lblregistro.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        lblregistro.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblregistro.setForeground(new java.awt.Color(255, 255, 255));
         lblregistro.setText("¿No tienes una cuenta?, Registrate aquí.");
         lblregistro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -132,12 +133,13 @@ public class Inicio extends javax.swing.JFrame {
                                     .addComponent(advNom, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(171, 171, 171)
-                                .addComponent(advIng, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(219, 219, 219)
-                                .addComponent(lblregistro)))
+                                .addComponent(advIng, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 173, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(207, 207, 207)
+                .addComponent(lblregistro)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -188,7 +190,7 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_lblregistroMouseClicked
 
     private void txtcontraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtcontraseñaActionPerformed
-        v.validar_ultimo_texto(txtcontraseña, advCon);
+        v.validar_ultimo_campo(txtcontraseña, advCon);
     }//GEN-LAST:event_txtcontraseñaActionPerformed
 
     private void btningresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btningresarActionPerformed

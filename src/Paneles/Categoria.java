@@ -301,7 +301,7 @@ public class Categoria extends javax.swing.JPanel {
     }//GEN-LAST:event_btnListarActionPerformed
 
     private void barraKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_barraKeyReleased
-        b.barra_empleado(barra, tabla, txttabla, advBar);
+        b.barra_categoria(barra, tabla, txttabla, advBar);
     }//GEN-LAST:event_barraKeyReleased
 
     private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarActionPerformed
