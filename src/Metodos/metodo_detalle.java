@@ -2,17 +2,13 @@
 package Metodos;
 
 import Clases.detalle_venta;
-import Paneles.Detalle_venta;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.System.Logger;
-import java.lang.System.Logger.Level;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.ResultSetMetaData;
 import java.util.List;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -192,7 +188,15 @@ public class metodo_detalle {
             double c6, subtotal;
             String c3, c4;
             Object obj3, obj4, obj5;
-
+            
+            Connection conect;
+            PreparedStatement ps;
+            ResultSet rs;
+            
+            Conexion con = new Conexion("postgres", "12345", "localhost", "5432", "proyecto_cafeteria");
+            con.ConexionPostgres();  
+            conect = con.getConnection();
+            
             try{
                 c6 = Double.parseDouble( camp6.getText().trim());
             }catch(NumberFormatException e){
@@ -217,6 +221,29 @@ public class metodo_detalle {
             
             subtotal = c5*c6;
             
+            String query = "SELECT * FROM producto WHERE nombre_producto = ?";
+            ps = conect.prepareStatement(query);
+            ps.setString(1, c4);
+            
+            rs = ps.executeQuery();
+            
+            if(rs.next()){
+                long id_prod = rs.getLong("id_producto");
+                int cantidad_disponible = rs.getInt("cantidad_producto");
+                
+                if(c5>cantidad_disponible){
+                    JOptionPane.showMessageDialog(null, "Revise las cantidades disponibles, la cantidad seleccionada es mayor a las unidades disponibles", "Error: no hay unidades suficientes", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                else{
+                    int resta = cantidad_disponible-c5;
+                    
+                    String queryupdate = "UPDATE producto SET cantidad_producto="+resta+" WHERE id_producto= "+id_prod;
+                    con.actualizar(queryupdate);
+                    
+                    
+                }
+            }
             boolean existe = false;
             for (detalle_venta item : lista_carrito) {
                 if (item.getProducto().equals(c4)) {
@@ -230,6 +257,7 @@ public class metodo_detalle {
             // Si no está en la lista, se agrega como un nuevo producto
             if (!existe) {
                 lista_carrito.add(new detalle_venta(c3, c4, c5, c6, subtotal));
+                
             }
 
             // Agregar el producto a la tabla visual

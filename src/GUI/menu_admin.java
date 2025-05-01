@@ -4,15 +4,19 @@
  */
 package GUI;
 
+import Hilos.hilo_producto;
 import Paneles.Categoria;
 import Paneles.Cliente;
 import Paneles.Detalle_venta;
 import Paneles.Empleado;
 import Paneles.Ingrediente;
+import Paneles.Notificacion;
 import Paneles.Nutriente;
 import Paneles.Producto;
 import Paneles.Venta;
 import java.awt.BorderLayout;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JPanel;
 
 /**
@@ -33,8 +37,21 @@ public class menu_admin extends javax.swing.JFrame {
     Venta vt = new Venta();
     Detalle_venta dv = new Detalle_venta();
     
-    public menu_admin() {
+    Notificacion pn = new Notificacion();
+    
+    
+    
+    public menu_admin() throws Exception {
+        
         initComponents();
+        
+        hilo_producto mi_hilo = new hilo_producto(pn.getModeloTabla());
+        try{
+            mi_hilo.inicio();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     private void ShowPanel(JPanel p){
@@ -67,6 +84,7 @@ public class menu_admin extends javax.swing.JFrame {
         btnpedido = new javax.swing.JButton();
         btndetalle = new javax.swing.JButton();
         fondo = new javax.swing.JPanel();
+        btndetalle1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -173,6 +191,16 @@ public class menu_admin extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
+        btndetalle1.setBackground(new java.awt.Color(199, 161, 122));
+        btndetalle1.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        btndetalle1.setForeground(new java.awt.Color(0, 0, 0));
+        btndetalle1.setText("Notificaciones");
+        btndetalle1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btndetalle1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout lateralLayout = new javax.swing.GroupLayout(lateral);
         lateral.setLayout(lateralLayout);
         lateralLayout.setHorizontalGroup(
@@ -192,7 +220,8 @@ public class menu_admin extends javax.swing.JFrame {
                             .addComponent(btningrediente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnnutriente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnpedido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btndetalle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(btndetalle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btndetalle1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addComponent(fondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -219,7 +248,9 @@ public class menu_admin extends javax.swing.JFrame {
                 .addComponent(btnpedido, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btndetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(170, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btndetalle1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(124, Short.MAX_VALUE))
             .addComponent(fondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -269,6 +300,10 @@ public class menu_admin extends javax.swing.JFrame {
         ShowPanel(dv);
     }//GEN-LAST:event_btndetalleActionPerformed
 
+    private void btndetalle1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndetalle1ActionPerformed
+        ShowPanel(pn);
+    }//GEN-LAST:event_btndetalle1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -299,7 +334,11 @@ public class menu_admin extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new menu_admin().setVisible(true);
+                try {
+                    new menu_admin().setVisible(true);
+                } catch (Exception ex) {
+                    Logger.getLogger(menu_admin.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -308,6 +347,7 @@ public class menu_admin extends javax.swing.JFrame {
     private javax.swing.JButton btncategoria;
     private javax.swing.JButton btncliente;
     private javax.swing.JButton btndetalle;
+    private javax.swing.JButton btndetalle1;
     private javax.swing.JButton btnempleado;
     private javax.swing.JButton btningrediente;
     private javax.swing.JButton btnnutriente;

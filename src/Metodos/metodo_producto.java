@@ -61,7 +61,7 @@ public class metodo_producto {
      
      
      //Listar
-     public void listar(JTextField camp1, JComboBox camp2, JTextField camp3, JTextArea camp4, JTextField camp5, DefaultTableModel tabla, JLabel msj, List<String> lista_ingrediente) {
+     public void listar(JTextField camp1, JComboBox camp2, JTextField camp3, JTextArea camp4, JTextField camp5, JTextField camp6, DefaultTableModel tabla, JLabel msj, List<String> lista_ingrediente) {
     PreparedStatement ps = null;
     Connection conn = null;
 
@@ -69,9 +69,11 @@ public class metodo_producto {
         // Validar que los campos obligatorios estén llenos
         long c1;
         double c5;
+        int c6;
         try {
             c1 = Long.parseLong(camp1.getText().trim());
-            c5 = Long.parseLong(camp5.getText().trim());
+            c5 = Double.parseDouble(camp5.getText().trim());
+            c6 = Integer.parseInt(camp6.getText().trim());
         } catch (NumberFormatException e) {
             msj.setForeground(Color.RED);
             msj.setText("Error: Debe rellenar todos los campos numéricos.");
@@ -111,7 +113,7 @@ public class metodo_producto {
         java.sql.Array sqlArray = conn.createArrayOf("text", arrayIngredientes); // Convertir en ARRAY de PostgreSQL
 
         // Consulta corregida
-        String queryIngrediente = "INSERT INTO producto (id_producto, categoria_producto, nombre_producto, descripcion_producto, nombre_ingrediente, precio_producto) VALUES (?, ?, ?, ?, ?, ?)";
+        String queryIngrediente = "INSERT INTO producto (id_producto, categoria_producto, nombre_producto, descripcion_producto, nombre_ingrediente, precio_producto, cantidad_producto) VALUES (?, ?, ?, ?, ?, ?, ?)";
         ps = conn.prepareStatement(queryIngrediente);
         ps.setLong(1, c1);
         ps.setString(2, c2);  
@@ -119,6 +121,7 @@ public class metodo_producto {
         ps.setString(4, c4);
         ps.setArray(5, sqlArray);
         ps.setDouble(6, c5);
+        ps.setInt(7, c6);
 
         int filasInsertadas = ps.executeUpdate();
 
@@ -136,6 +139,7 @@ public class metodo_producto {
         camp3.setText("");
         camp4.setText("");
         camp5.setText("");
+        camp6.setText("");
         lista_ingrediente.clear();
 
     } catch (Exception e) {
@@ -175,6 +179,7 @@ public class metodo_producto {
                     rs.getString("categoria_producto"),
                     rs.getString("descripcion_producto"),
                     rs.getArray("nombre_ingrediente"),
+                    rs.getInt("cantidad_producto"),
                     rs.getDouble("precio_producto")
                 });
             }
@@ -201,7 +206,7 @@ public class metodo_producto {
      
      
      //Buscar
-     public void buscar(JTextField camp1, JComboBox camp2, JTextField camp3, JTextArea camp4, JTextField camp5, JLabel msj){
+     public void buscar(JTextField camp1, JComboBox camp2, JTextField camp3, JTextArea camp4, JTextField camp5, JTextField camp6, JLabel msj){
         Connection conect = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -226,6 +231,7 @@ public class metodo_producto {
                 camp3.setText(rs.getString("nombre_producto"));
                 camp4.setText(rs.getString("descripcion_producto"));
                 camp5.setText(rs.getString("precio_producto"));
+                camp6.setText(rs.getString("cantidad_producto"));
                 
                 msj.setForeground(Color.GREEN);
                 msj.setText("Registro encontrado.");
@@ -260,7 +266,7 @@ public class metodo_producto {
      
      
      //Editar
-     public void editar (JTextField camp1, JComboBox camp2, JTextField camp3, JTextArea camp4, JTextField camp5, List<String> lista_ingrediente, JTable tabla, JLabel msj){
+     public void editar (JTextField camp1, JComboBox camp2, JTextField camp3, JTextArea camp4, JTextField camp5, JTextField camp6, List<String> lista_ingrediente, JTable tabla, JLabel msj){
         Connection conect = null;
         PreparedStatement ps = null;
         
@@ -277,7 +283,8 @@ public class metodo_producto {
             }
             
             long c1 = Long.parseLong(camp1.getText().trim());
-            long c5 = Long.parseLong(camp5.getText().trim());
+            double c5 = Double.parseDouble(camp5.getText().trim());
+            int c6 = Integer.parseInt(camp6.getText().trim());
             
             Object obj2 = camp2.getSelectedItem();
             String c2 = obj2.toString();
@@ -288,7 +295,7 @@ public class metodo_producto {
             String[] array_ingrediente = lista_ingrediente.toArray(new String[0]);
             java.sql.Array sqlArray = conect.createArrayOf("text", array_ingrediente);
             
-            String queryEditar = "UPDATE producto SET categoria_producto = ?, nombre_producto = ?, descripcion_producto = ?, nombre_ingrediente = ?, precio_producto = ? WHERE id_producto = ?";
+            String queryEditar = "UPDATE producto SET categoria_producto = ?, nombre_producto = ?, descripcion_producto = ?, nombre_ingrediente = ?, precio_producto = ?, cantidad_producto = ? WHERE id_producto = ?";
             ps = conect.prepareStatement(queryEditar);
             
             ps.setString(1, c2);
@@ -296,7 +303,8 @@ public class metodo_producto {
             ps.setString(3, c4);
             ps.setArray(4, sqlArray);
             ps.setDouble(5, c5);
-            ps.setLong(6, c1);
+            ps.setInt(6, c6);
+            ps.setLong(7, c1);
 
             int fila_afectada = ps.executeUpdate();
             if(fila_afectada>0){
@@ -305,7 +313,8 @@ public class metodo_producto {
                 tabla.setValueAt(c2, fila_seleccionada, 2);
                 tabla.setValueAt(c4, fila_seleccionada, 3);
                 tabla.setValueAt(sqlArray, fila_seleccionada, 4);
-                tabla.setValueAt(c5, fila_seleccionada, 5);
+                tabla.setValueAt(c6, fila_seleccionada, 5);
+                tabla.setValueAt(c5, fila_seleccionada, 6);
                 
                 msj.setForeground(Color.GREEN);
                 msj.setText("Registro editado con éxito");
@@ -314,6 +323,7 @@ public class metodo_producto {
                 camp3.setText("");
                 camp4.setText("");
                 camp5.setText("");
+                camp6.setText("");
                 lista_ingrediente.clear();
             }
             else{
